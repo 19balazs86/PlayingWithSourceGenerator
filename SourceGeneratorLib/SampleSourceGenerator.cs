@@ -17,10 +17,9 @@ public sealed class SampleSourceGenerator : IIncrementalGenerator
 
         var provider = context.SyntaxProvider
             .CreateSyntaxProvider(
-                predicate: (syntaxNode, _)       => syntaxNode is ClassDeclarationSyntax,
-                transform: (genSyntaxContext, _) => syntaxProviderTransform(genSyntaxContext))
-            .Where(cds => cds.hasAttribute)
-            .Select((t, _) => t.cds);
+                predicate: static (syntaxNode, _)       => syntaxNode is ClassDeclarationSyntax,
+                transform: static (genSyntaxContext, _) => syntaxProviderTransform(genSyntaxContext))
+            .Where(static cds => cds is not null);
 
         var compilation = context.CompilationProvider.Combine(provider.Collect());
 
@@ -28,7 +27,7 @@ public sealed class SampleSourceGenerator : IIncrementalGenerator
     }
 
     // Filter classes annotated with the [Report] attribute
-    private static (ClassDeclarationSyntax cds, bool hasAttribute) syntaxProviderTransform(GeneratorSyntaxContext context)
+    private static ClassDeclarationSyntax? syntaxProviderTransform(GeneratorSyntaxContext context)
     {
         var classDeclarationSyntax = (ClassDeclarationSyntax)context.Node;
 
@@ -41,15 +40,15 @@ public sealed class SampleSourceGenerator : IIncrementalGenerator
                 continue;
             }
 
-            string attributeName = attributeSymbol.ContainingType.ToDisplayString();
+            string attributeFullName = attributeSymbol.ContainingType.ToDisplayString();
 
-            if (_attributeFullName.Equals(attributeName))
+            if (_attributeFullName.Equals(attributeFullName))
             {
-                return (classDeclarationSyntax, true);
+                return classDeclarationSyntax;
             }
         }
 
-        return (classDeclarationSyntax, false);
+        return null;
     }
 
     private static void outputExecute(SourceProductionContext context, Compilation compilation, IEnumerable<ClassDeclarationSyntax> classDeclarations)
@@ -63,9 +62,6 @@ public sealed class SampleSourceGenerator : IIncrementalGenerator
                 continue;
             }
 
-            string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
-            string className     = classDeclarationSyntax.Identifier.Text;
-
             IEnumerable<string> methodBody = classSymbol.GetMembers()
                 .OfType<IPropertySymbol>()
                 .Select(property =>
@@ -73,6 +69,9 @@ public sealed class SampleSourceGenerator : IIncrementalGenerator
                     yield return $"{{property.Name}} = {this.{{property.Name}}}";
                     """) // yield return $"Id = {this.Id}";
                 .Select(x => $"{"",8}{x}"); // PadLeft with 8 spaces
+
+            string namespaceName = classSymbol.ContainingNamespace.ToDisplayString();
+            string className     = classDeclarationSyntax.Identifier.Text;
 
             string code =
                 $$"""
