@@ -8,8 +8,7 @@
 ## Resources
 
 - [Incremental source generator with Roslyn](https://youtu.be/BfYxZ4mfv0E) 📽️*1hour - Stefan Pölz - NDC Oslo 2023*
-- [ Quoter](https://roslynquoter.azurewebsites.net) 📓*Roslyn compiler platform - C# code to syntax tree*
-- RoslynGenerator template [F0.Templates](https://github.com/Flash0ver/F0.Templates) 👤*Stefan Pölz | Note: Rider has a built-in template*
+- [Quoter](https://roslynquoter.azurewebsites.net) 📓*Roslyn compiler platform - C# code to syntax tree*
 - List of [C# Source Generators](https://github.com/amis92/csharp-source-generators) 👤
   - [AutoEntityBuilder](https://github.com/mhdbouk/AutoBuilder) 👤Mohamad Dbouk
   - [Minimal APIs Helpers](https://github.com/marcominerva/MinimalHelpers) 👤Marco Minerva
