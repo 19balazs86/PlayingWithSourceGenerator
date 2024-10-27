@@ -1,4 +1,4 @@
-# Playing with Source Generator
+# Playing with Roslyn Source Generator
 
 - This repository contains 3 projects as a playground for Source Generator
 - Class library, the Source Generator itself
@@ -8,7 +8,7 @@
 ## Resources
 
 - [Incremental source generator with Roslyn](https://youtu.be/BfYxZ4mfv0E) 📽️*1hour - Stefan Pölz - NDC Oslo 2023*
-- [Roslyn Quoter](https://roslynquoter.azurewebsites.net) 📓*Roslyn compiler platform - C# code to syntax tree*
+- [ Quoter](https://roslynquoter.azurewebsites.net) 📓*Roslyn compiler platform - C# code to syntax tree*
 - RoslynGenerator template [F0.Templates](https://github.com/Flash0ver/F0.Templates) 👤*Stefan Pölz | Note: Rider has a built-in template*
 - List of [C# Source Generators](https://github.com/amis92/csharp-source-generators) 👤
   - [AutoEntityBuilder](https://github.com/mhdbouk/AutoBuilder) 👤Mohamad Dbouk

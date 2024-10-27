@@ -1,7 +1,7 @@
-using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+using System.Text;
 
 namespace SourceGeneratorLib;
 
@@ -10,6 +10,8 @@ public sealed class SampleSourceGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
+        // if (!System.Diagnostics.Debugger.IsAttached) System.Diagnostics.Debugger.Launch(); // For Visual Studio debugging
+
         context.RegisterPostInitializationOutput(ctx => ctx.AddSource(
             "ReportAttribute.g.cs", SourceText.From(_attributeSourceCode, Encoding.UTF8)));
 
