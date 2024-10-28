@@ -31,24 +31,9 @@ public sealed class SampleSourceGenerator : IIncrementalGenerator
     {
         var classDeclarationSyntax = (ClassDeclarationSyntax)context.Node;
 
-        foreach (AttributeSyntax attributeSyntax in classDeclarationSyntax.AttributeLists.SelectMany(attributeListSyntax => attributeListSyntax.Attributes))
-        {
-            // attributeSyntax.Name.ToString(); // This is just 'Report'
-
-            if (context.SemanticModel.GetSymbolInfo(attributeSyntax).Symbol is not IMethodSymbol attributeSymbol)
-            {
-                continue;
-            }
-
-            string attributeFullName = attributeSymbol.ContainingType.ToDisplayString();
-
-            if (_attributeFullName.Equals(attributeFullName))
-            {
-                return classDeclarationSyntax;
-            }
-        }
-
-        return null;
+        return classDeclarationSyntax.HasAttributeWithFullName(context, _attributeFullName)
+            ? classDeclarationSyntax
+            : null;
     }
 
     private static void outputExecute(SourceProductionContext context, Compilation compilation, IEnumerable<ClassDeclarationSyntax> classDeclarations)
