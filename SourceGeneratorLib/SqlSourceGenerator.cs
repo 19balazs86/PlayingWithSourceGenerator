@@ -28,7 +28,8 @@ public sealed class SqlSourceGenerator : IIncrementalGenerator
 
         return classDeclarationSyntax.HasAttributeWithFullName(context, _tableAttributeFullName)
             ? classDeclarationSyntax
-            : null;    }
+            : null;
+    }
 
     private static void outputExecute(
         SourceProductionContext context,
