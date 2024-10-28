@@ -41,7 +41,7 @@ public static class Extensions
         if (compilation.GetSemanticModel(classDeclaration.SyntaxTree)
                        .GetDeclaredSymbol(classDeclaration) is INamedTypeSymbol symbol)
         {
-            return $"\"{symbol.ToDisplayString()}\""; // <Namespace>.<ClassName>
+            return symbol.ToDisplayString(); // <Namespace>.<ClassName>
         }
 
         return string.Empty;
@@ -49,7 +49,7 @@ public static class Extensions
 
     public static string GetFullName(this ClassDeclarationSyntax classDeclaration)
     {
-        string ns = GetNamespace(classDeclaration);
+        string ns = classDeclaration.GetNamespace();
 
         return $"{ns}.{classDeclaration.Identifier.Text}".TrimStart('.');
     }
