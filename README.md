@@ -15,3 +15,12 @@
 - Series: [Creating an incremental generator](https://andrewlock.net/series/creating-a-source-generator) 📓*Andrew Lock*
 - [Source Generators](https://code-maze.com/csharp-source-generators) 📓*Code-Maze*
 - [Debug Source Generators in Rider](https://blog.jetbrains.com/dotnet/2023/07/13/debug-source-generators-in-jetbrains-rider) 📓*JetBrains Blog*
+
+## Note
+
+To get the **Syntax Visualizer** view in Visual Studio, select the following options during the installation
+
+- Other Toolsets / Visual Studio extension development *(.NET Compiler Platform SDK)*
+- Individual components: DGML editor
+- View / Other Windows / Syntax Visualizer
+
